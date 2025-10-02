@@ -1,0 +1,30 @@
+{
+  "name": "irys-auto-uploader",
+  "version": "1.0.0",
+  "description": "Daily automatic image uploader to Irys using random Google Images",
+  "main": "upload2.js",
+  "type": "module",
+  "scripts": {
+    "start": "node upload2.js",
+    "test": "node upload2.js --test",
+    "schedule": "node upload2.js --schedule",
+    "dev": "node --inspect upload2.js"
+  },
+  "keywords": [
+    "irys",
+    "arweave",
+    "image",
+    "upload",
+    "automation",
+    "web3"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@irys/sdk": "^0.2.11",
+    "axios": "^1.12.2",
+    "fs-extra": "^11.3.2",
+    "node-cron": "^4.2.1",
+    "sharp": "^0.34.4"
+  }
+}
