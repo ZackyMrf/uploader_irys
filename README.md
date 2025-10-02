@@ -1,20 +1,20 @@
-# Irys Auto Daily Image Uploader
+# Irys Auto Image Uploader
 
-Script otomatis untuk mengupload gambar-gambar random dari API gambar gratis ke Irys setiap hari.
+Automated script for uploading random images from free image APIs to Irys/Arweave network with beautiful gallery generation.
 
-## Fitur
+## Features
 
-- ✅ Download gambar random dari Lorem Picsum API
-- ✅ Upload manual atau terjadwal ke Irys
-- ✅ Bisa upload 20+ gambar sekaligus
-- ✅ Optimasi gambar otomatis (resize & compress)
-- ✅ Sistem logging lengkap dengan balance check
-- ✅ Membuat gallery HTML otomatis yang cantik
-- ✅ Cleanup temporary files
-- ✅ Error handling dan jeda antar upload (4 detik)
-- ✅ Estimasi biaya sebelum upload
-- ✅ Ringan tanpa browser automation
-- ✅ Multiple variasi gambar (normal, grayscale, blur)
+- ✅ Download random images from Lorem Picsum API
+- ✅ Manual or scheduled uploads to Irys
+- ✅ Batch upload 20+ images at once
+- ✅ Automatic image optimization (resize & compress)
+- ✅ Comprehensive logging with balance checking
+- ✅ Beautiful HTML gallery generation
+- ✅ Automatic temporary file cleanup
+- ✅ Error handling with 4-second upload delays
+- ✅ Cost estimation before uploads
+- ✅ Lightweight without browser automation
+- ✅ Multiple image variants (normal, grayscale, blur)
 
 ## Setup
 
@@ -24,7 +24,7 @@ npm install
 ```
 
 ### 2. Setup Environment
-Copy `.env.example` ke `.env` dan isi dengan private key wallet Anda:
+Copy `.env.example` to `.env` and fill in your wallet private key:
 ```bash
 cp .env.example .env
 ```
@@ -33,83 +33,82 @@ Edit `.env`:
 ```
 WALLET_PRIVATE_KEY=your-ethereum-private-key-here
 IMAGES_PER_DAY=20
-UPLOAD_TIME="0 9 * * *"
 ```
 
 ### 3. Fund Wallet
-Pastikan wallet Ethereum Anda memiliki Sepolia ETH untuk biaya upload:
-- Dapatkan Sepolia ETH di: https://sepoliafaucet.com/
+Make sure your Ethereum wallet has Sepolia ETH for upload costs:
+- Get Sepolia ETH from: https://sepoliafaucet.com/
 
-## Cara Menggunakan
+## Usage
 
-### 🚀 Upload Langsung (Default)
+### 🚀 Direct Upload (Default)
 ```bash
 npm start
 ```
-Script akan langsung mendownload dan upload gambar sekali jalan, lalu selesai.
-- Download gambar dari Picsum API
-- Upload ke Irys dengan jeda 4 detik antar upload
-- Buat gallery HTML dan manifest
-- Cleanup dan keluar
+Script will immediately download and upload images once, then exit.
+- Download images from Picsum API
+- Upload to Irys with 4-second delay between uploads
+- Create HTML gallery and manifest
+- Cleanup and exit
 
-### 🧪 Mode Test (Upload 3 Gambar)
+### 🧪 Test Mode (Upload 3 Images)
 ```bash
 npm test
 ```
-Sama seperti upload langsung, tapi hanya 3 gambar untuk testing.
+Same as direct upload, but only 3 images for testing.
 
-### ⏰ Mode Scheduler (Auto Daily Upload)
+### ⏰ Scheduler Mode (Auto Daily Upload)
 ```bash
 npm run schedule
 ```
-**Opsional** - Script akan berjalan terus dan upload gambar setiap hari sesuai jadwal.
-- Aktif 24/7 sampai dihentikan (Ctrl+C)
-- Upload otomatis setiap hari jam 9 pagi
-- Gunakan jika ingin automasi penuh
+**Optional** - Script will run continuously and upload images daily on schedule.
+- Active 24/7 until stopped (Ctrl+C)
+- Automatic upload every day at 9 AM
+- Use if you want full automation
 
-> **Catatan**: Mode default adalah upload langsung, bukan scheduler. Scheduler hanya diaktifkan jika diperlukan.
+> **Note**: Default mode is direct upload, not scheduler. Scheduler is only activated when needed.
 
-## Konfigurasi
+## Configuration
 
 ### Environment Variables (.env)
-- `WALLET_PRIVATE_KEY`: Private key wallet Ethereum Anda (REQUIRED)
-- `IMAGES_PER_DAY`: Jumlah gambar per upload (default: 20)
-- `MAX_IMAGE_SIZE`: Maksimal resolusi gambar dalam pixels (default: 2048)
-- `IMAGE_QUALITY`: Kualitas JPEG 1-100 (default: 80)
-- `DOWNLOAD_TIMEOUT`: Timeout download dalam ms (default: 15000)
+- `WALLET_PRIVATE_KEY`: Your Ethereum wallet private key (REQUIRED)
+- `IMAGES_PER_DAY`: Number of images per upload (default: 20)
+- `MAX_IMAGE_SIZE`: Maximum image resolution in pixels (default: 2048)
+- `IMAGE_QUALITY`: JPEG quality 1-100 (default: 80)
+- `DOWNLOAD_TIMEOUT`: Download timeout in ms (default: 15000)
 
-### Advanced Configuration (dalam script)
+### Advanced Configuration (in script)
 ```javascript
 const CONFIG = {
-  IMAGES_PER_DAY: 20, // Jumlah gambar per hari
+  IMAGES_PER_DAY: 20, // Number of images per day
   UPLOAD_TIME: '0 9 * * *', // Cron format
   TEMP_FOLDER: './temp_images',
-  SEARCH_KEYWORDS: [...], // Keywords untuk search gambar
-  MAX_IMAGE_SIZE: 2048, // Max resolusi gambar
-  IMAGE_QUALITY: 80, // Kualitas JPEG
+  IMAGE_SOURCES: [...], // Image API sources
+  MAX_IMAGE_SIZE: 2048, // Max image resolution
+  IMAGE_QUALITY: 80, // JPEG quality
   RETRY_ATTEMPTS: 3
 };
 ```
 
-## Format Waktu Cron
+## Cron Time Format
 
-- `0 9 * * *` = Setiap hari jam 9 pagi
-- `0 */6 * * *` = Setiap 6 jam
-- `0 12 * * 1` = Setiap Senin jam 12 siang
-- `30 8 * * 1-5` = Setiap hari kerja jam 8:30 pagi
+- `0 9 * * *` = Every day at 9 AM
+- `0 */6 * * *` = Every 6 hours
+- `0 12 * * 1` = Every Monday at 12 PM
+- `30 8 * * 1-5` = Every weekday at 8:30 AM
 
 ## Output
 
-### File Log
-- `daily-upload.log`: Log semua aktivitas
-- `daily-report-YYYY-MM-DD.json`: Report harian dalam format JSON
+### Log Files
+- `daily-upload.log`: All activity logs
+- `daily-report-YYYY-MM-DD.json`: Daily report in JSON format
 
-### URLs yang Dihasilkan
-- **Gallery URL**: Halaman web dengan semua gambar hari itu
-- **Manifest URL**: URL utama manifest Arweave
-- **Individual Image URLs**: URL untuk setiap gambar
+### Generated URLs
+- **Gallery URL**: Web page with all uploaded images
+- **Manifest URL**: Main Arweave manifest URL
+- **Individual Image URLs**: URL for each image
 
-### Contoh Output:
+### Example Output:
 ```
 ✅ Daily upload completed successfully!
 🔗 Gallery URL: https://gateway.irys.xyz/ABC123.../gallery.html
@@ -117,46 +116,64 @@ const CONFIG = {
 📊 Images uploaded: 20
 ```
 
-## Sumber Gambar
+## Image Sources
 
-Script menggunakan API gambar gratis berikut:
+Script uses the following free image APIs:
 
 ### Lorem Picsum (https://picsum.photos)
-- Gambar random berkualitas tinggi
-- Berbagai dimensi dan seed
+- High-quality random images
+- Various dimensions and seeds
+- Multiple variants: normal, grayscale, blur
 
-### Unsplash Source (https://source.unsplash.com)
-Kategori yang digunakan:
-- nature
-- landscape  
-- city
-- architecture
-- food
-- technology
-- abstract
-- animal
-- travel
-
-### Dimensi Gambar
+### Image Dimensions
 - 800x600 (4:3)
 - 1024x768 (4:3)
 - 1200x800 (3:2)
 - 900x900 (Square)
 - 1080x1350 (Portrait)
 
-## Workflow Upload
+### Image Variants
+- **Normal**: Standard color images
+- **Grayscale**: Black and white versions
+- **Blur**: Blurred effect with varying intensity (1-5)
 
-1. **Check Balance** - Script cek balance wallet Sepolia ETH
-2. **Download Images** - Download random dari Picsum dengan jeda 1 detik
-3. **Optimize Images** - Resize dan compress dengan Sharp
-4. **Upload to Irys** - Upload satu per satu dengan jeda 4 detik
-5. **Create Gallery** - Buat HTML gallery cantik
-6. **Save Report** - Simpan daily report JSON
-7. **Cleanup** - Hapus temporary files
+## Upload Workflow
+
+1. **Check Balance** - Script checks wallet Sepolia ETH balance
+2. **Download Images** - Download random images from Picsum with 1-second delays
+3. **Optimize Images** - Resize and compress using Sharp
+4. **Upload to Irys** - Upload one by one with 4-second delays
+5. **Create Gallery** - Generate beautiful HTML gallery
+6. **Save Report** - Save daily report in JSON format
+7. **Cleanup** - Remove temporary files
+
+## Troubleshooting
 
 ## Troubleshooting
 
 ### Error: Not enough balance for transaction
+```
+💸 Insufficient balance for filename.jpg. Try funding your wallet.
+💰 Get Sepolia ETH: https://sepoliafaucet.com/
+```
+**Cause**: Wallet balance is insufficient for uploading specific file
+**Solution**: Top up Sepolia ETH to your wallet
+
+### Error: No images downloaded
+- Check internet connection
+- Lorem Picsum might be down
+- Try running again after a few minutes
+
+### Error: Image download timeout
+- Check internet connection
+- Increase `DOWNLOAD_TIMEOUT` in .env
+- API might be slow
+
+### Partial Upload Success/Failure
+This is normal if wallet balance is low. Larger files require higher costs.
+- Check cost estimates in logs: `💸 Estimated cost for filename.jpg`
+- Fund wallet with more ETH
+- Or reduce `IMAGE_QUALITY` and `MAX_IMAGE_SIZE`
 ```
 � Insufficient balance for filename.jpg. Try funding your wallet.
 💰 Get Sepolia ETH: https://sepoliafaucet.com/
@@ -195,26 +212,26 @@ cat daily-report-2024-10-02.json
 
 ## 📊 Output Files
 
-Setiap kali upload, script akan menghasilkan:
-- `daily-upload.log` - Log semua aktivitas dengan timestamp
-- `daily-report-YYYY-MM-DD.json` - Report detail upload dalam JSON
-- Gallery HTML di Irys dengan URL yang dipublish
+Each upload generates:
+- `daily-upload.log` - All activities with timestamps
+- `daily-report-YYYY-MM-DD.json` - Detailed upload report in JSON
+- HTML gallery on Irys with published URL
 
 ## 🔒 Security Notes
 
-- Jangan commit file `.env` ke repository
-- Private key disimpan lokal, tidak dikirim kemana-mana
-- Gunakan wallet terpisah khusus untuk upload
-- Monitor biaya upload secara berkala
+- Never commit `.env` file to repository
+- Private key is stored locally, never sent anywhere
+- Use a separate wallet dedicated for uploads
+- Monitor upload costs regularly
 
 ## 📝 Summary
 
-Script ini adalah **manual uploader** dengan opsi scheduler. Mode default:
-- ✅ **Manual**: `npm start` - Upload sekali lalu selesai
-- ✅ **Test**: `npm test` - Upload 3 gambar untuk testing  
-- ⏰ **Scheduler**: `npm run schedule` - Auto upload harian (opsional)
+This script is a **manual uploader** with optional scheduler. Default modes:
+- ✅ **Manual**: `npm start` - Upload once then exit
+- ✅ **Test**: `npm test` - Upload 3 images for testing  
+- ⏰ **Scheduler**: `npm run schedule` - Auto daily upload (optional)
 
-Perfect untuk upload batch gambar ke Arweave/Irys dengan gallery yang cantik! 🎨
+Perfect for batch uploading images to Arweave/Irys with beautiful galleries! 🎨
 
 ## License
 
